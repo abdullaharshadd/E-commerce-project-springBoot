@@ -4,11 +4,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"log"
 	"net/http"
-	"os"
-	"os/signal"
-	"syscall"
 	"time"
 
 	"github.com/go-chi/chi/v5"
@@ -123,26 +119,4 @@ func (a *Application) Run(ctx context.Context) error {
 		}
 		return nil
 	}
-}
-
-func Run(args []string) error {
-	ctx, stop := signal.NotifyContext(context.Background(), os.Interrupt, syscall.SIGTERM)
-	defer stop()
-
-	addr := defaultServerAddr
-	if len(args) > 0 && args[0] != "" {
-		addr = args[0]
-	}
-
-	app, err := NewApplication(ctx, addr)
-	if err != nil {
-		return fmt.Errorf("jtspringproject: initialize application: %w", err)
-	}
-
-	log.Printf("jtspringproject: starting server on %s", addr)
-	if err := app.Run(ctx); err != nil {
-		return fmt.Errorf("jtspringproject: run application: %w", err)
-	}
-	log.Print("jtspringproject: server stopped cleanly")
-	return nil
 }
