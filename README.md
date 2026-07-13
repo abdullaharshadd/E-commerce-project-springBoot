@@ -1,232 +1,275 @@
-<a href="https://trendshift.io/repositories/151" target="_blank"><img src="https://trendshift.io/api/badge/repositories/151" alt="jaygajera17%2FE-commerce-project-springBoot | Trendshift" style="width: 250px; height: 55px;" width="250" height="55"/></a>
+```markdown
+# E-Commerce Project (Go Migration)
 
-# E-commerce Spring Boot (JSP + Hibernate)
+A web-based e-commerce application with admin and user-facing functionality, including product management, categories, shopping cart, and user authentication. Originally built with Java/Spring Boot; this repository is the migrated Go implementation using the standard library and idiomatic Go packages.
 
-Production-oriented Java e-commerce web application built with Spring Boot, JSP, Spring Security, and Hibernate SessionFactory.
+> **⚠️ Migration Confidence: 0% — This codebase requires significant manual review before it is production-ready. Do not deploy without completing the steps in the [Manual Review Required](#manual-review-required) section.**
 
-This project follows a layered MVC architecture and supports role-based access for admin and customer workflows.
-
-<br/><br/>
-
-<h1>🛒 E-Commerce Spring Boot</h1>
- 
-<p>A production-oriented Java e-commerce web application built with Spring Boot, JSP, Spring Security, and Hibernate — featuring role-based access for admin and customer workflows.</p>
-<br/>
-<!-- Badges Row 1: Community -->
-<p>
-  <a href="https://github.com/jaygajera17/E-commerce-project-springBoot/stargazers">
-    <img src="https://img.shields.io/github/stars/jaygajera17/E-commerce-project-springBoot?style=flat-square&logo=github&labelColor=1a1a2e&color=f5a623&label=Stars" alt="Stars"/>
-  </a>
-  <a href="https://github.com/jaygajera17/E-commerce-project-springBoot/network/members">
-    <img src="https://img.shields.io/github/forks/jaygajera17/E-commerce-project-springBoot?style=flat-square&logo=github&labelColor=1a1a2e&color=4a90d9&label=Forks" alt="Forks"/>
-  </a>
-  <a href="https://github.com/jaygajera17/E-commerce-project-springBoot/issues">
-    <img src="https://img.shields.io/github/issues/jaygajera17/E-commerce-project-springBoot?style=flat-square&logo=github&labelColor=1a1a2e&color=e05c5c&label=Issues" alt="Issues"/>
-  </a>
-  <a href="https://github.com/jaygajera17/E-commerce-project-springBoot/pulls">
-    <img src="https://img.shields.io/github/issues-pr/jaygajera17/E-commerce-project-springBoot?style=flat-square&logo=github&labelColor=1a1a2e&color=8e44ad&label=Pull+Requests" alt="Pull Requests"/>
-  </a>
-  <a href="https://github.com/jaygajera17/E-commerce-project-springBoot/graphs/contributors">
-    <img src="https://img.shields.io/github/contributors/jaygajera17/E-commerce-project-springBoot?style=flat-square&logo=github&labelColor=1a1a2e&color=27ae60&label=Contributors" alt="Contributors"/>
-  </a>
-</p>
-
-<br/>
-
-## Highlights
-
-- Server-rendered e-commerce app (JSP views)
-- Spring Security authentication and role-based authorization
-- Custom Hibernate SessionFactory configuration (non-Spring-Data JPA runtime)
-- MySQL-backed persistence with DAO and service layers
-- Admin modules for products, categories, and customer listing
-- User modules for registration, login, profile management, and product browsing
-- Jenkins pipeline file included for CI/CD bootstrap
+---
 
 ## Tech Stack
 
-<p>
-  <img src="https://img.shields.io/badge/Java-11-ED8B00?style=flat-square&logo=openjdk&logoColor=white&labelColor=1a1a2e" alt="Java 11"/>
-  <img src="https://img.shields.io/badge/Spring%20Boot-2.6.4-6DB33F?style=flat-square&logo=springboot&logoColor=white&labelColor=1a1a2e" alt="Spring Boot"/>
-  <img src="https://img.shields.io/badge/Spring%20Security-5.x-6DB33F?style=flat-square&logo=springsecurity&logoColor=white&labelColor=1a1a2e" alt="Spring Security"/>
-  <img src="https://img.shields.io/badge/Hibernate-ORM-59666C?style=flat-square&logo=hibernate&logoColor=white&labelColor=1a1a2e" alt="Hibernate"/>
-  <img src="https://img.shields.io/badge/MySQL-8.x-4479A1?style=flat-square&logo=mysql&logoColor=white&labelColor=1a1a2e" alt="MySQL"/>
-  <img src="https://img.shields.io/badge/Maven-Build-C71A36?style=flat-square&logo=apachemaven&logoColor=white&labelColor=1a1a2e" alt="Maven"/>
-</p>
+| Layer | Technology |
+|---|---|
+| Language | Go (1.21+) |
+| HTTP Server | `net/http` (standard library) |
+| ORM / DB Access | To be determined — see Migration Notes |
+| Database | MySQL (inherited from original) |
+| Templating | Go `html/template` (replaces JSP/JSTL) |
+| Auth / Sessions | To be determined — replaces Spring Security |
+| Schema Migrations | `golang-migrate` or `goose` (replaces `hbm2ddl.auto`) |
+| Build | `go build` / `go run` |
+| Frontend deps | npm (detected in setup — see note below) |
 
-- Java 11
-- Spring Boot 2.6.4
-- Spring MVC
-- Spring Security
-- Hibernate ORM (via `LocalSessionFactoryBean`)
-- JSP + JSTL + Tomcat Jasper
-- MySQL 8 connector
-- Maven
+---
 
-## Project Structure
+## Prerequisites
 
-```text
-src/main/java/com/jtspringproject/JtSpringProject/
-  configuration/     # Security config
-  controller/        # MVC controllers
-  dao/               # Data access layer
-  models/            # Entities
-  services/          # Business layer
-  repository/        # Spring Data repository (partial)
-  HibernateConfiguration.java
-  JtSpringProjectApplication.java
-src/main/resources/
-  application.properties
-src/main/webapp/views/
-  *.jsp
-basedata.sql
-pom.xml
-```
+- Go 1.21 or later
+- MySQL 5.7+ or MariaDB 10.5+
+- Node.js / npm (required for any frontend asset pipeline — verify actual usage)
+- `golang-migrate` CLI or `goose` (for database migrations)
+
+Install Go: https://go.dev/dl/  
+Install Node.js: https://nodejs.org/
+
+---
 
 ## Getting Started
 
-### Prerequisites
-
-- Java 11+
-- Maven 3.8+
-- MySQL or MariaDB
-
-### 1) Clone and move into project
+### 1. Clone the repository
 
 ```bash
-git clone https://github.com/jaygajera17/E-commerce-project-springBoot.git
+git clone https://github.com/abdullaharshadd/E-commerce-project-springBoot.git
 cd E-commerce-project-springBoot
 ```
 
-### 2) Configure database
-
-Update `src/main/resources/application.properties`:
-
-```properties
-db.driver=com.mysql.cj.jdbc.Driver
-db.url=jdbc:mysql://localhost:3306/ecommjava?createDatabaseIfNotExist=true
-db.username=your_db_user
-db.password=your_db_password
-
-hibernate.dialect=org.hibernate.dialect.MySQL5Dialect
-hibernate.show_sql=true
-hibernate.hbm2ddl.auto=update
-entitymanager.packagesToScan=com
-```
-
-### 3) Optional: seed sample data
-
-Run `basedata.sql` against your database if you want initial categories/users/products.
-
-Note: sample credentials in `basedata.sql` are development-only defaults.
-
-### 4) Run the app
+### 2. Install dependencies
 
 ```bash
-mvn clean package
-mvn spring-boot:run
+# Go dependencies
+go mod download
+
+# Frontend dependencies (if applicable — verify what npm manages here)
+npm install
 ```
 
-App URL: http://localhost:8080/
+### 3. Configure environment
 
-## IDE Notes (IntelliJ)
-
-If JSP views are not resolved, set the run configuration working directory to `$MODULE_WORKING_DIR$`.
-
-## Core Endpoints
-
-### Public/User
-
-- `/`
-- `/login`
-- `/register`
-- `/newuserregister`
-- `/user/products`
-- `/profileDisplay`
-
-### Admin
-
-- `/admin/`
-- `/admin/Dashboard`
-- `/admin/products`
-- `/admin/categories`
-- `/admin/customers`
-
-## Security Model
-
-- Admin routes under `/admin/**` require role `ADMIN`
-- User routes require role `USER`
-- Login pages:
-  - Admin: `/admin/login`
-  - User: `/login`
-- CSRF protection is enabled for form submissions
-
-## Build and Test
+Copy the example environment file and fill in your values:
 
 ```bash
-mvn clean verify
+cp .env.example .env
 ```
 
-Notes:
+Edit `.env` with your database credentials and other settings. See the [Environment Variables](#environment-variables) table below.
 
-- `mvn test` requires a reachable database because context startup initializes Hibernate and datasource beans.
+### 4. Set up the database
 
-## CI/CD
+Create the database manually:
 
-A Jenkins pipeline is included in `jenkins file` with stages for:
+```sql
+CREATE DATABASE ecommerce CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+```
 
-- Checkout
-- Build
-- Test
-- Deploy (template placeholder)
+Run schema migrations (replace tool with whichever is adopted):
 
-Adjust branch, deployment steps, and credentials for your environment.
+```bash
+# Using golang-migrate
+migrate -path ./migrations -database "mysql://USER:PASSWORD@tcp(HOST:PORT)/ecommerce" up
 
-## Troubleshooting
+# OR using goose
+goose -dir ./migrations mysql "USER:PASSWORD@tcp(HOST:PORT)/ecommerce" up
+```
 
-- `Could not resolve placeholder 'db.driver'`:
-  - Ensure all `db.*` keys exist in `application.properties`
-- JSP pages not rendering:
-  - Verify working directory and `spring.mvc.view.prefix=/views/`
-- Tests failing on startup:
-  - Start MySQL and verify connection credentials first
+> **Note:** The original project relied on Hibernate `hbm2ddl.auto` for schema generation. This has no Go equivalent. Migration files must be authored manually based on the entity models (`Cart`, `CartProduct`, `Category`, `User`, `Product`). See [Known Limitations](#known-limitations).
 
-## Screenshots
+### 5. Run the application
 
-![Preview 1](https://github.com/jaygajera17/E-commerce-project-springBoot/assets/81226571/02a04d3c-1fc9-418c-b231-639f6525d07e)
-![Preview 2](https://github.com/jaygajera17/E-commerce-project-springBoot/assets/81226571/24c4451b-43a6-4c23-a78a-786eab4303b0)
-![Preview 3](https://github.com/jaygajera17/E-commerce-project-springBoot/assets/81226571/93c1baeb-326c-450f-867e-a883900a6644)
+```bash
+go run ./cmd/server
+```
 
-## Roadmap
+Or build and run the binary:
 
-See the full roadmap in [roadmap.md](roadmap.md).
+```bash
+go build -o ecommerce ./cmd/server
+./ecommerce
+```
 
-Current priorities:
+The server will start on the port defined in your environment configuration (default: `8080`).
 
-- Solid foundation: CI, Docker Compose, contribution workflow, and test coverage.
-- Complete e-commerce domain: cart, checkout, auth, search, and API docs.
-- Industry patterns: caching, concurrency control, observability, and scalability.
-- Long-term architecture: event-driven patterns and microservice decomposition guide.
+---
 
-## Demo
+## Running Tests
 
-demo video: https://youtu.be/c6WWdINWSlI
+```bash
+go test ./...
+```
 
-## ⭐ Support This Project
+To run tests with verbose output:
 
-If this project helped you, please consider giving it a star on GitHub.
-Your support helps improve visibility and motivates future maintenance.
+```bash
+go test -v ./...
+```
 
-## Star History
+To run tests with coverage:
 
-<a href="https://www.star-history.com/?repos=jaygajera17%2FE-commerce-project-springBoot&type=date&legend=top-left">
- <picture>
-   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/chart?repos=jaygajera17/E-commerce-project-springBoot&type=date&theme=dark&legend=top-left" />
-   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/chart?repos=jaygajera17/E-commerce-project-springBoot&type=date&legend=top-left" />
-   <img alt="Star History Chart" src="https://api.star-history.com/chart?repos=jaygajera17/E-commerce-project-springBoot&type=date&legend=top-left" />
- </picture>
-</a>
+```bash
+go test -cover ./...
+```
 
-<div align="center">
-  <sub>Built as a college project · Grown into a community resource · Maintained with ❤️</sub>
-</div>
+> **Note:** The original test suite covered `CartProductId`, `CartProduct`, and application context loading. These tests were among the low-confidence migrations and must be manually verified for correctness. See [Manual Review Required](#manual-review-required).
+
+---
+
+## Environment Variables
+
+These variables must be set before running the application. No defaults are safe for production.
+
+| Variable | Description | Example |
+|---|---|---|
+| `DB_HOST` | MySQL host | `localhost` |
+| `DB_PORT` | MySQL port | `3306` |
+| `DB_NAME` | Database name | `ecommerce` |
+| `DB_USER` | Database username | `root` |
+| `DB_PASSWORD` | Database password | `secret` |
+| `SERVER_PORT` | HTTP server listen port | `8080` |
+| `SESSION_SECRET` | Secret key for session signing | `change-me-32-chars-minimum` |
+| `ADMIN_ROLE` | Role identifier for admin users | `ADMIN` |
+
+> The original project used `application.properties` with custom-prefixed keys (`db.*`, `hibernate.*`). These have been replaced with the variables above. Verify that all references in the migrated code match these names exactly.
+
+---
+
+## Architecture Overview
+
+```
+.
+├── cmd/
+│   └── server/
+│       └── main.go          # Application entry point; explicit dependency wiring
+├── internal/
+│   ├── config/              # Environment and database configuration
+│   ├── models/              # Structs: User, Cart, CartProduct, CartProductId, Category, Product
+│   ├── dao/                 # Data access layer (replaces Spring @Repository / Hibernate DAOs)
+│   │   ├── cart.go
+│   │   ├── cartproduct.go
+│   │   ├── category.go
+│   │   ├── product.go
+│   │   └── user.go
+│   ├── services/            # Business logic (replaces Spring @Service)
+│   │   ├── cart.go
+│   │   └── user.go
+│   ├── handlers/            # HTTP handlers (replaces Spring @Controller)
+│   │   ├── admin.go
+│   │   ├── user.go
+│   │   └── error.go
+│   └── middleware/          # Auth, session, and security middleware (replaces Spring Security)
+├── migrations/              # SQL migration files (replaces hbm2ddl.auto)
+├── templates/               # Go html/template files (replaces JSP/JSTL views)
+├── static/                  # Static assets (CSS, JS, images)
+├── go.mod
+├── go.sum
+└── .env.example
+```
+
+**Key architectural decisions:**
+
+- Dependencies are wired explicitly in `cmd/server/main.go` — there is no IoC container or component scanning.
+- Transactions are managed explicitly at the service layer using `db.Begin()` / `Commit()` / `Rollback()` rather than declarative `@Transactional` annotations.
+- HTTP routing is handled via `net/http` `ServeMux` or a thin router. All routes are registered explicitly.
+- Password hashing replaces Spring Security's `BCryptPasswordEncoder` — verify the chosen library produces compatible hashes if migrating an existing user database.
+
+---
+
+## Migration Notes
+
+This project was migrated from Java 17 / Spring Boot to Go. The following are the most significant structural changes:
+
+| Original (Spring Boot) | Migrated (Go) |
+|---|---|
+| `@SpringBootApplication` + auto-configuration | Explicit `main.go` composition root |
+| Spring Security (`SecurityConfiguration.java`) | Custom middleware (session + role checks) |
+| Hibernate / JPA entity scanning + `hbm2ddl.auto` | Explicit struct registration + SQL migration files |
+| `@Transactional` on service methods | Explicit `db.Begin/Commit/Rollback` in service layer |
+| `DriverManagerDataSource` / JDBC URL | `database/sql` with Go DSN string |
+| Spring `@Controller` / `@RestController` | `net/http` handler functions |
+| JSP + JSTL views | `html/template` templates |
+| Maven `pom.xml` + `spring-boot-maven-plugin` | `go.mod` + `go build` |
+| `BCryptPasswordEncoder` via `PasswordEncoderConfig` | Go bcrypt (`golang.org/x/crypto/bcrypt`) |
+| `@Repository` DAOs with `SessionFactory` injection | Plain Go structs with `*sql.DB` |
+
+---
+
+## Known Limitations
+
+The following components could not be mechanically migrated and require manual implementation. The overall migration confidence is **0%** — treat all migrated files as drafts requiring human verification.
+
+### 1. Maven POM → `go.mod` (pom.xml)
+Spring Boot starters bundle many transitive dependencies. There is no 1:1 mapping. Each starter's capabilities (security, data, web, etc.) must be satisfied by individually selected Go packages, pinned to explicit versions in `go.mod`.
+
+### 2. Spring Boot Maven Plugin
+Fat-JAR packaging and `spring-boot:run` have no equivalent. Use `go build` and `go run` respectively. If containerising, write a multi-stage `Dockerfile` manually.
+
+### 3. JSP / JSTL Views (tomcat-embed-jasper + jstl)
+JSP is a Java servlet technology. All views must be rewritten as `html/template` templates or the application must be refactored to a REST API with a separate frontend. No automatic conversion was performed.
+
+### 4. Declarative Transaction Management (`@EnableTransactionManagement` / `@Transactional`)
+Go has no AOP proxy equivalent. All service methods that were annotated with `@Transactional` in the original code must be audited. Transaction boundaries must be made explicit in the migrated service layer. **Audit every method in `cartService.java` and `userService.java` before relying on this code.**
+
+### 5. Hibernate Package Scanning + `hbm2ddl.auto`
+Automatic schema generation from annotations is not available in Go. SQL migration files must be authored manually from the entity definitions. The `enable_lazy_load_no_trans` property from `application.properties` was intentionally dropped — data access must be rewritten to load all required relations within transaction scope.
+
+### 6. Spring Security
+`SecurityConfiguration.java` implemented authentication, authorisation, password encoding, and session management. The Go equivalent is custom middleware that must be implemented and audited thoroughly. CSRF protection, session fixation, and role-based access control must be explicitly re-implemented.
+
+### 7. Custom `application.properties` Keys (`db.*`, `hibernate.*`)
+These non-standard property prefixes were bound by hand-written `@Configuration` classes. The mapping to Go environment variables may be incomplete. Verify every config value is correctly read in `internal/config/`.
+
+---
+
+## Manual Review Required
+
+The following files were flagged as low-confidence or unmigrable. A developer must manually verify each one before the application is considered functional.
+
+| File | What to verify |
+|---|---|
+| `cmd/server/main.go` (from `JtSpringProjectApplication.java`) | All dependencies are wired correctly; server starts and binds routes |
+| `internal/config/` (from `HibernateConfiguration.java`) | DB DSN is correctly constructed; connection pool is configured; ORM/driver is registered |
+| `internal/middleware/security.go` (from `SecurityConfiguration.java`) | Auth flow, session management, role checks, and password hashing all function correctly |
+| `internal/config/password.go` (from `PasswordEncoderConfig.java`) | BCrypt cost factor matches original; existing password hashes from the original DB are compatible |
+| `internal/handlers/admin.go` (from `AdminController.java`) | All admin routes are registered; auth middleware is applied; request/response shapes match |
+| `internal/handlers/user.go` (from `UserController.java`) | All user routes are registered; session handling is correct |
+| `internal/handlers/error.go` (from `ErrorController.java`) | Error responses are handled and formatted correctly |
+| `internal/models/cart.go` (from `Cart.java`) | Struct fields, types, and DB column mappings are correct |
+| `internal/models/cartproduct.go` (from `CartProduct.java`) | Composite relationship is modelled correctly; no lazy-load assumptions remain |
+| `internal/models/cartproductid.go` (from `CartProductId.java`) | Composite key equivalence logic is correct |
+| `internal/models/category.go` (from `Category.java`) | Struct fields match DB schema |
+| `internal/models/user.go` (from `User.java`) | Password field handling; role field; no sensitive data accidentally serialised |
+| `internal/dao/cart.go` (from `cartDao.java`) | All queries are correct SQL; transaction handling is explicit |
+| `internal/dao/cartproduct.go` (from `cartProductDao.java`) | Composite key queries work correctly |
+| `internal/dao/category.go` (from `categoryDao.java`) | CRUD operations are complete |
+| `internal/dao/product.go` (from `productDao.java`) | CRUD operations are complete |
+| `internal/dao/user.go` (from `userDao.java`) | Lookup by username/email works; password is never returned in plain text |
+| `internal/services/cart.go` (from `cartService.java`) | Transaction boundaries are explicit; all `@Transactional` methods have been audited |
+| `internal/services/user.go` (from `userService.java`) | Registration, login, and role assignment logic is correct |
+| `migrations/` | Schema accurately reflects all original entity definitions |
+| `templates/` | All JSP views have been rewritten as valid Go templates |
+| Test files (from `JtSpringProjectApplicationTests.java`, `CartProductIdTest.java`, `CartProductTest.java`) | Tests compile, run, and assert correct behaviour in Go |
+
+---
+
+## Contributing
+
+1. Resolve all items in [Manual Review Required](#manual-review-required) before adding new features.
+2. Ensure `go vet ./...` and `go test ./...` pass cleanly.
+3. Run `golangci-lint run` before submitting a pull request.
+
+---
+
+## Original Project
+
+The original Spring Boot source is available at:  
+https://github.com/abdullaharshadd/E-commerce-project-springBoot
+```
