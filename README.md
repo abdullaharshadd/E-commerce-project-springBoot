@@ -1,232 +1,274 @@
-<a href="https://trendshift.io/repositories/151" target="_blank"><img src="https://trendshift.io/api/badge/repositories/151" alt="jaygajera17%2FE-commerce-project-springBoot | Trendshift" style="width: 250px; height: 55px;" width="250" height="55"/></a>
+```markdown
+# E-Commerce Project (Go Migration)
 
-# E-commerce Spring Boot (JSP + Hibernate)
+A web-based e-commerce application with admin and user-facing functionality, including product catalog management, category management, shopping cart, and user authentication. This repository is a migration of [abdullaharshadd/E-commerce-project-springBoot](https://github.com/abdullaharshadd/E-commerce-project-springBoot) from Java/Spring Boot to Go using the standard library and idiomatic Go tooling.
 
-Production-oriented Java e-commerce web application built with Spring Boot, JSP, Spring Security, and Hibernate SessionFactory.
+> **⚠️ Migration Confidence: 0% — This codebase requires significant manual review and completion before it is production-ready. Do not deploy without addressing the items listed in [Known Limitations](#known-limitations) and [Manual Review Required](#manual-review-required).**
 
-This project follows a layered MVC architecture and supports role-based access for admin and customer workflows.
-
-<br/><br/>
-
-<h1>🛒 E-Commerce Spring Boot</h1>
- 
-<p>A production-oriented Java e-commerce web application built with Spring Boot, JSP, Spring Security, and Hibernate — featuring role-based access for admin and customer workflows.</p>
-<br/>
-<!-- Badges Row 1: Community -->
-<p>
-  <a href="https://github.com/jaygajera17/E-commerce-project-springBoot/stargazers">
-    <img src="https://img.shields.io/github/stars/jaygajera17/E-commerce-project-springBoot?style=flat-square&logo=github&labelColor=1a1a2e&color=f5a623&label=Stars" alt="Stars"/>
-  </a>
-  <a href="https://github.com/jaygajera17/E-commerce-project-springBoot/network/members">
-    <img src="https://img.shields.io/github/forks/jaygajera17/E-commerce-project-springBoot?style=flat-square&logo=github&labelColor=1a1a2e&color=4a90d9&label=Forks" alt="Forks"/>
-  </a>
-  <a href="https://github.com/jaygajera17/E-commerce-project-springBoot/issues">
-    <img src="https://img.shields.io/github/issues/jaygajera17/E-commerce-project-springBoot?style=flat-square&logo=github&labelColor=1a1a2e&color=e05c5c&label=Issues" alt="Issues"/>
-  </a>
-  <a href="https://github.com/jaygajera17/E-commerce-project-springBoot/pulls">
-    <img src="https://img.shields.io/github/issues-pr/jaygajera17/E-commerce-project-springBoot?style=flat-square&logo=github&labelColor=1a1a2e&color=8e44ad&label=Pull+Requests" alt="Pull Requests"/>
-  </a>
-  <a href="https://github.com/jaygajera17/E-commerce-project-springBoot/graphs/contributors">
-    <img src="https://img.shields.io/github/contributors/jaygajera17/E-commerce-project-springBoot?style=flat-square&logo=github&labelColor=1a1a2e&color=27ae60&label=Contributors" alt="Contributors"/>
-  </a>
-</p>
-
-<br/>
-
-## Highlights
-
-- Server-rendered e-commerce app (JSP views)
-- Spring Security authentication and role-based authorization
-- Custom Hibernate SessionFactory configuration (non-Spring-Data JPA runtime)
-- MySQL-backed persistence with DAO and service layers
-- Admin modules for products, categories, and customer listing
-- User modules for registration, login, profile management, and product browsing
-- Jenkins pipeline file included for CI/CD bootstrap
+---
 
 ## Tech Stack
 
-<p>
-  <img src="https://img.shields.io/badge/Java-11-ED8B00?style=flat-square&logo=openjdk&logoColor=white&labelColor=1a1a2e" alt="Java 11"/>
-  <img src="https://img.shields.io/badge/Spring%20Boot-2.6.4-6DB33F?style=flat-square&logo=springboot&logoColor=white&labelColor=1a1a2e" alt="Spring Boot"/>
-  <img src="https://img.shields.io/badge/Spring%20Security-5.x-6DB33F?style=flat-square&logo=springsecurity&logoColor=white&labelColor=1a1a2e" alt="Spring Security"/>
-  <img src="https://img.shields.io/badge/Hibernate-ORM-59666C?style=flat-square&logo=hibernate&logoColor=white&labelColor=1a1a2e" alt="Hibernate"/>
-  <img src="https://img.shields.io/badge/MySQL-8.x-4479A1?style=flat-square&logo=mysql&logoColor=white&labelColor=1a1a2e" alt="MySQL"/>
-  <img src="https://img.shields.io/badge/Maven-Build-C71A36?style=flat-square&logo=apachemaven&logoColor=white&labelColor=1a1a2e" alt="Maven"/>
-</p>
+| Concern | Technology |
+|---|---|
+| Language | Go (1.21+) |
+| HTTP server | `net/http` (standard library) |
+| ORM / DB access | [GORM](https://gorm.io) |
+| Database | MySQL (migrated from the original MySQL config) |
+| Authentication | Manual session/cookie handling or [gorilla/sessions](https://github.com/gorilla/sessions) |
+| Templating | `html/template` (standard library) |
+| Dependency management | Go modules (`go.mod` / `go.sum`) |
+| Schema migrations | [golang-migrate](https://github.com/golang-migrate/migrate) or [goose](https://github.com/pressly/goose) |
+| Testing | `testing` (standard library) |
 
-- Java 11
-- Spring Boot 2.6.4
-- Spring MVC
-- Spring Security
-- Hibernate ORM (via `LocalSessionFactoryBean`)
-- JSP + JSTL + Tomcat Jasper
-- MySQL 8 connector
-- Maven
+---
 
-## Project Structure
+## Prerequisites
 
-```text
-src/main/java/com/jtspringproject/JtSpringProject/
-  configuration/     # Security config
-  controller/        # MVC controllers
-  dao/               # Data access layer
-  models/            # Entities
-  services/          # Business layer
-  repository/        # Spring Data repository (partial)
-  HibernateConfiguration.java
-  JtSpringProjectApplication.java
-src/main/resources/
-  application.properties
-src/main/webapp/views/
-  *.jsp
-basedata.sql
-pom.xml
-```
+- Go 1.21 or later — [install](https://go.dev/dl/)
+- MySQL 8.0 or later running and accessible
+- Node.js / npm (only if the project includes front-end asset build steps — `npm install` was detected in the setup plan; verify whether this applies to static assets)
+- `golang-migrate` CLI or `goose` CLI if you are running schema migrations manually
+
+---
 
 ## Getting Started
 
-### Prerequisites
-
-- Java 11+
-- Maven 3.8+
-- MySQL or MariaDB
-
-### 1) Clone and move into project
+### 1. Clone the repository
 
 ```bash
-git clone https://github.com/jaygajera17/E-commerce-project-springBoot.git
+git clone https://github.com/abdullaharshadd/E-commerce-project-springBoot.git
 cd E-commerce-project-springBoot
 ```
 
-### 2) Configure database
-
-Update `src/main/resources/application.properties`:
-
-```properties
-db.driver=com.mysql.cj.jdbc.Driver
-db.url=jdbc:mysql://localhost:3306/ecommjava?createDatabaseIfNotExist=true
-db.username=your_db_user
-db.password=your_db_password
-
-hibernate.dialect=org.hibernate.dialect.MySQL5Dialect
-hibernate.show_sql=true
-hibernate.hbm2ddl.auto=update
-entitymanager.packagesToScan=com
-```
-
-### 3) Optional: seed sample data
-
-Run `basedata.sql` against your database if you want initial categories/users/products.
-
-Note: sample credentials in `basedata.sql` are development-only defaults.
-
-### 4) Run the app
+### 2. Install Go dependencies
 
 ```bash
-mvn clean package
-mvn spring-boot:run
+go mod tidy
 ```
 
-App URL: http://localhost:8080/
+### 3. Install front-end dependencies (if applicable)
 
-## IDE Notes (IntelliJ)
-
-If JSP views are not resolved, set the run configuration working directory to `$MODULE_WORKING_DIR$`.
-
-## Core Endpoints
-
-### Public/User
-
-- `/`
-- `/login`
-- `/register`
-- `/newuserregister`
-- `/user/products`
-- `/profileDisplay`
-
-### Admin
-
-- `/admin/`
-- `/admin/Dashboard`
-- `/admin/products`
-- `/admin/categories`
-- `/admin/customers`
-
-## Security Model
-
-- Admin routes under `/admin/**` require role `ADMIN`
-- User routes require role `USER`
-- Login pages:
-  - Admin: `/admin/login`
-  - User: `/login`
-- CSRF protection is enabled for form submissions
-
-## Build and Test
+A `package.json` / `npm install` step was detected during migration analysis. Verify whether static assets require a build step:
 
 ```bash
-mvn clean verify
+npm install
 ```
 
-Notes:
+If no `package.json` exists in the migrated output, skip this step.
 
-- `mvn test` requires a reachable database because context startup initializes Hibernate and datasource beans.
+### 4. Configure environment variables
 
-## CI/CD
+Copy the example environment file and fill in values for your environment:
 
-A Jenkins pipeline is included in `jenkins file` with stages for:
+```bash
+cp .env.example .env
+```
 
-- Checkout
-- Build
-- Test
-- Deploy (template placeholder)
+Edit `.env` with your database credentials and any other required values. See the [Environment Variables](#environment-variables) table below.
 
-Adjust branch, deployment steps, and credentials for your environment.
+### 5. Set up the database
 
-## Troubleshooting
+Create the database in MySQL:
 
-- `Could not resolve placeholder 'db.driver'`:
-  - Ensure all `db.*` keys exist in `application.properties`
-- JSP pages not rendering:
-  - Verify working directory and `spring.mvc.view.prefix=/views/`
-- Tests failing on startup:
-  - Start MySQL and verify connection credentials first
+```sql
+CREATE DATABASE ecommerce CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+```
 
-## Screenshots
+Run schema migrations. The original project used `hibernate.hbm2ddl.auto=update` (auto-schema generation), which has **not** been ported. You must apply migrations explicitly:
 
-![Preview 1](https://github.com/jaygajera17/E-commerce-project-springBoot/assets/81226571/02a04d3c-1fc9-418c-b231-639f6525d07e)
-![Preview 2](https://github.com/jaygajera17/E-commerce-project-springBoot/assets/81226571/24c4451b-43a6-4c23-a78a-786eab4303b0)
-![Preview 3](https://github.com/jaygajera17/E-commerce-project-springBoot/assets/81226571/93c1baeb-326c-450f-867e-a883900a6644)
+```bash
+# Using golang-migrate
+migrate -path ./migrations -database "mysql://USER:PASSWORD@tcp(HOST:PORT)/ecommerce" up
 
-## Roadmap
+# OR using goose
+goose -dir ./migrations mysql "USER:PASSWORD@tcp(HOST:PORT)/ecommerce" up
+```
 
-See the full roadmap in [roadmap.md](roadmap.md).
+> **Note:** Migration SQL files must be authored manually from the original entity definitions. See [Migration Notes](#migration-notes) for details.
 
-Current priorities:
+### 6. Run the application
 
-- Solid foundation: CI, Docker Compose, contribution workflow, and test coverage.
-- Complete e-commerce domain: cart, checkout, auth, search, and API docs.
-- Industry patterns: caching, concurrency control, observability, and scalability.
-- Long-term architecture: event-driven patterns and microservice decomposition guide.
+```bash
+go run ./cmd/server
+```
 
-## Demo
+Or build and run the binary:
 
-demo video: https://youtu.be/c6WWdINWSlI
+```bash
+go build -o ecommerce ./cmd/server
+./ecommerce
+```
 
-## ⭐ Support This Project
+The server will start on the port defined by the `APP_PORT` environment variable (default: `8080`).
 
-If this project helped you, please consider giving it a star on GitHub.
-Your support helps improve visibility and motivates future maintenance.
+---
 
-## Star History
+## Running Tests
 
-<a href="https://www.star-history.com/?repos=jaygajera17%2FE-commerce-project-springBoot&type=date&legend=top-left">
- <picture>
-   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/chart?repos=jaygajera17/E-commerce-project-springBoot&type=date&theme=dark&legend=top-left" />
-   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/chart?repos=jaygajera17/E-commerce-project-springBoot&type=date&legend=top-left" />
-   <img alt="Star History Chart" src="https://api.star-history.com/chart?repos=jaygajera17/E-commerce-project-springBoot&type=date&legend=top-left" />
- </picture>
-</a>
+```bash
+go test ./...
+```
 
-<div align="center">
-  <sub>Built as a college project · Grown into a community resource · Maintained with ❤️</sub>
-</div>
+To run tests with verbose output:
+
+```bash
+go test -v ./...
+```
+
+> **Note:** Test coverage is likely incomplete as a result of the migration. The original Spring Boot test infrastructure (JUnit, MockMvc, Spring test context) has no direct equivalent and must be rewritten using Go's `testing` package and `net/http/httptest`.
+
+---
+
+## Environment Variables
+
+These variables must be set before running the application. None were automatically detected from the original `application.properties` due to the use of non-standard Spring property keys; the table below reflects the values that must be manually mapped.
+
+| Variable | Description | Example |
+|---|---|---|
+| `DB_HOST` | MySQL host | `localhost` |
+| `DB_PORT` | MySQL port | `3306` |
+| `DB_NAME` | Database name | `ecommerce` |
+| `DB_USER` | Database username | `root` |
+| `DB_PASSWORD` | Database password | `secret` |
+| `APP_PORT` | Port the HTTP server listens on | `8080` |
+| `SESSION_SECRET` | Secret key for signing session cookies | `change-me-in-production` |
+
+Create a `.env.example` file in the repository root with these keys (values blank) for developer onboarding.
+
+---
+
+## Architecture Overview
+
+The migrated code follows a layered structure that mirrors the original Spring MVC package layout, translated to Go conventions:
+
+```
+.
+├── cmd/
+│   └── server/         # Application entry point (main.go)
+├── internal/
+│   ├── config/         # Database connection setup, environment loading
+│   ├── models/         # GORM struct definitions (User, Product, Category, Cart, CartProduct)
+│   ├── dao/            # Data access layer (replaces Spring @Repository / Hibernate DAOs)
+│   ├── handler/        # HTTP handlers (replaces Spring @Controller classes)
+│   │   ├── admin/      # Admin controller logic
+│   │   └── user/       # User-facing controller logic
+│   ├── middleware/      # Authentication and error-handling middleware
+│   └── router/         # Route registration (replaces Spring RequestMapping)
+├── migrations/         # SQL schema migration files (must be authored manually)
+├── static/             # Static assets (CSS, JS, images)
+├── templates/          # HTML templates (html/template format)
+├── go.mod
+├── go.sum
+└── .env.example
+```
+
+### Request flow
+
+```
+HTTP Request
+  → router (net/http ServeMux or chi/gorilla/mux)
+    → middleware (auth check, session validation)
+      → handler (business logic)
+        → dao (GORM database calls)
+          → MySQL
+```
+
+Transaction management is **explicit**: each DAO function that requires a transaction accepts a `*gorm.DB` handle. Callers in the handler or a service layer are responsible for calling `db.Begin()`, `tx.Commit()`, and `tx.Rollback()`. There is no `@Transactional` annotation equivalent.
+
+---
+
+## Migration Notes
+
+The following summarizes the significant structural changes made during migration from Java/Spring Boot to Go.
+
+### Build system
+- **Before:** Maven `pom.xml` with Spring Boot starter parent, Hibernate, Tomcat Jasper, Spring Security.
+- **After:** Go modules (`go.mod`). Each Spring Boot starter has been replaced with the closest Go library. The Maven dependency tree does not translate automatically; dependencies were selected manually per capability.
+
+### Dependency injection
+- **Before:** Spring IoC container with `@Autowired`, `@Component`, `@Service`, `@Repository`.
+- **After:** No DI framework. Dependencies are passed explicitly via constructors or function parameters.
+
+### ORM and database access
+- **Before:** Hibernate `SessionFactory`, `@Entity`, `@Transactional`, `hbm2ddl.auto=update` for schema management.
+- **After:** GORM with explicit struct registration. Schema management is handled by `golang-migrate` or `goose` with versioned SQL files. `hbm2ddl.auto=update` behavior has been deliberately removed.
+
+### Transaction management
+- **Before:** Spring AOP `@Transactional` on DAO and service methods.
+- **After:** Explicit `db.Transaction(func(tx *gorm.DB) error { ... })` blocks or manual `tx.Begin()` / `tx.Commit()` / `tx.Rollback()` in handler/service code.
+
+### Security / Authentication
+- **Before:** Spring Security `SecurityConfiguration` with filter chains, role-based access control, password encoding, and CSRF protection.
+- **After:** Manual middleware. Session cookies are managed with `gorilla/sessions` or equivalent. Role checks are inline in handler middleware. CSRF protection must be implemented explicitly if required.
+
+### Templating
+- **Before:** JSP templates rendered server-side by Tomcat Jasper.
+- **After:** `html/template` Go templates. JSP syntax (JSTL, EL expressions, taglibs) has been rewritten in Go template syntax. Template file locations and names may have changed.
+
+### Error handling
+- **Before:** Spring `@ControllerAdvice` / `ErrorController`.
+- **After:** Custom middleware or handler wrapper functions that write appropriate HTTP status codes and error pages.
+
+### Lazy loading
+- **Before:** `hibernate.enable_lazy_load_no_trans=true` allowed lazy-loaded associations to be resolved outside a transaction session (an anti-pattern).
+- **After:** All associations are loaded eagerly via GORM `Preload()` calls or explicit joins at the point of query. No out-of-transaction lazy loading exists.
+
+---
+
+## Known Limitations
+
+The following components could not be automatically migrated and require manual implementation. The migration tool reported **0% overall confidence**, meaning the entire codebase should be treated as a scaffold requiring developer completion rather than a finished port.
+
+| File / Component | Reason | Recommended Action |
+|---|---|---|
+| `pom.xml` — entire file | Maven/JVM-specific; no 1:1 Go equivalent | Author `go.mod` manually, mapping each Spring starter to the closest Go library |
+| `HibernateConfiguration.java` — `HibernateTransactionManager` / `@EnableTransactionManagement` | Spring AOP declarative transactions have no Go equivalent | Rewrite all transaction boundaries explicitly using `db.Transaction()` or `sql.Tx`; audit every former `@Transactional` method |
+| `HibernateConfiguration.java` — `LocalSessionFactoryBean` with `packagesToScan` | Hibernate entity scanning and dialect concepts don't exist in Go | Register GORM models explicitly; use `AutoMigrate` for development or migration files for production |
+| `HibernateConfiguration.java` — `DriverManagerDataSource` | JDBC URL format and no-pool behavior are Java-specific | Use GORM with `database/sql` and configure a connection pool (`SetMaxOpenConns`, `SetMaxIdleConns`) |
+| `application.properties` — custom `db.*` keys | Non-standard keys require a companion `@Configuration` class to bind; that wiring logic is what actually matters | Rewrite DataSource/connection setup in `internal/config/` using environment variables |
+| `application.properties` — `hibernate.enable_lazy_load_no_trans` | Anti-pattern with no Go equivalent | Fix all call sites to load required associations eagerly within the same query/transaction |
+| `application.properties` — `hbm2ddl.auto=update` | Auto-schema mutation is Hibernate runtime magic | Write explicit migration SQL files and manage them with `golang-migrate` or `goose` |
+| `SecurityConfiguration.java` | Spring Security filter chain, BCrypt, CSRF, role-based URL rules | Manually implement authentication middleware, password hashing (`golang.org/x/crypto/bcrypt`), and route-level role checks |
+| All DAO files (`cartDao`, `categoryDao`, `cartProductDao`, `productDao`, `userDao`) | `@Transactional` and `SessionFactory.getCurrentSession()` thread-bound session have no Go equivalent | Rewrite each DAO to accept `*gorm.DB` explicitly; move transaction boundaries to the handler or service layer |
+
+---
+
+## Manual Review Required
+
+The following files were flagged as low-confidence during migration and **must be manually verified** by a developer before the application is considered functional. Treat these files as first drafts or placeholders.
+
+- `pom.xml`
+- `src/main/resources/application.properties` → `internal/config/config.go`
+- `src/main/java/com/jtspringproject/JtSpringProject/configuration/SecurityConfiguration.java` → authentication middleware
+- `src/main/java/com/jtspringproject/JtSpringProject/controller/AdminController.java` → `internal/handler/admin/`
+- `src/main/java/com/jtspringproject/JtSpringProject/controller/UserController.java` → `internal/handler/user/`
+- `src/main/java/com/jtspringproject/JtSpringProject/controller/ErrorController.java` → error middleware
+- `src/main/java/com/jtspringproject/JtSpringProject/models/Cart.java` → `internal/models/cart.go`
+- `src/main/java/com/jtspringproject/JtSpringProject/models/CartProduct.java` → `internal/models/cart_product.go`
+- `src/main/java/com/jtspringproject/JtSpringProject/models/Category.java` → `internal/models/category.go`
+- `src/main/java/com/jtspringproject/JtSpringProject/dao/cartDao.java` → `internal/dao/cart_dao.go`
+- `src/main/java/com/jtspringproject/JtSpringProject/dao/categoryDao.java` → `internal/dao/category_dao.go`
+- `src/main/java/com/jtspringproject/JtSpringProject/dao/cartProductDao.java` → `internal/dao/cart_product_dao.go`
+- `src/main/java/com/jtspringproject/JtSpringProject/dao/productDao.java` → `internal/dao/product_dao.go`
+- `src/main/java/com/jtspringproject/JtSpringProject/dao/userDao.java` → `internal/dao/user_dao.go`
+
+### Suggested review checklist for each file
+
+- [ ] GORM struct tags match the original database schema column names and types
+- [ ] All former `@Transactional` boundaries are now explicit `db.Transaction()` calls
+- [ ] No remaining references to Spring, Hibernate, or Java-specific imports
+- [ ] HTTP route paths and HTTP methods match the original `@RequestMapping` / `@GetMapping` / `@PostMapping` annotations
+- [ ] Form field names in templates match the struct field names used in handlers
+- [ ] Password hashing uses `bcrypt` and is not stored in plaintext
+- [ ] Admin-only routes are protected by role-checking middleware
+- [ ] Schema migration SQL files are present for every GORM model
+
+---
+
+## Original Project Reference
+
+- Original repository: [abdullaharshadd/E-commerce-project-springBoot](https://github.com/abdullaharshadd/E-commerce-project-springBoot)
+- Original stack: Java 8+, Spring Boot, Spring Security, Hibernate, MySQL, JSP/JSTL, Maven
+- Modules migrated: 27 / 27 (all files have a Go counterpart, but confidence is 0% — counterparts are scaffolds, not verified implementations)
+```
