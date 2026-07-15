@@ -1,22 +1,3 @@
-// Package jtspringproject contains the migrated application entry point for
-// the original Spring Boot application (JtSpringProjectApplication.java).
-//
-// MIGRATION_NOTE: The original class was annotated with
-// @SpringBootApplication(exclude = HibernateJpaAutoConfiguration.class) and its
-// sole job was to bootstrap the Spring application context and start the
-// embedded servlet container via SpringApplication.run(...).
-//
-// In Go there is no auto-configuration / component scanning. The idiomatic
-// equivalent is an explicit main() that:
-//
-//   1. Loads configuration (see LoadConfigFromEnv in hibernateconfiguration.go).
-//   2. Opens the database connection (NewDataSource) and wires the transactor.
-//   3. Builds the HTTP handler with all routes (buildHandler).
-//   4. Starts an *http.Server and blocks, with graceful shutdown on SIGINT/SIGTERM.
-//
-// The exclusion of HibernateJpaAutoConfiguration is a no-op here: Go uses the
-// standard database/sql package directly (see NewDataSource), so there is no
-// ORM auto-configuration to exclude.
 package jtspringproject
 
 import (
@@ -191,7 +172,7 @@ func Run(ctx context.Context) error {
 	// Spring DataSource bean. We keep it wired here even though the current
 	// route stubs do not use it yet, so that controller migrations can depend
 	// on it. It is deferred-closed on shutdown.
-	db, err := NewDataSource(cfg)
+	db, err := NewDataSource(ctx, cfg)
 	if err != nil {
 		return fmt.Errorf("open datasource: %w", err)
 	}
@@ -204,8 +185,11 @@ func Run(ctx context.Context) error {
 	// controller migrations land.
 	_ = NewSQLTransactor(db)
 
-	addr := cfg.ServerAddr
-	if addr == "" {
+	addr := cfg.DSN
+	// Use PORT env var or default addr for the HTTP server address.
+	if serverPort := os.Getenv("PORT"); serverPort != "" {
+		addr = ":" + serverPort
+	} else {
 		addr = defaultAddr
 	}
 
